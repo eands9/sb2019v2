@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="sb2019v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Type here..." borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Zya-Qn-95e">
+                                <rect key="frame" x="19.5" y="57" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="j4t-nM-aen"/>
+                                    <constraint firstAttribute="width" constant="375" id="oK5-Fe-mUt"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Brc-0r-hrD">
+                                <rect key="frame" x="19.5" y="175" width="375" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="OpW-gx-ruf"/>
+                                    <constraint firstAttribute="height" constant="28" id="Xcm-l5-vYN"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Type"/>
+                                    <segment title="Def"/>
+                                    <segment title="Stop"/>
+                                    <segment title="Sound"/>
+                                    <segment title="Audio"/>
+                                    <segment title="Video"/>
+                                </segments>
+                                <connections>
+                                    <action selector="wordInfoSeg:" destination="BYZ-38-t0r" eventType="valueChanged" id="FgX-Cj-z87"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-sf-2JI">
+                                <rect key="frame" x="19.5" y="120" width="375" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="3sA-zQ-7fn"/>
+                                    <constraint firstAttribute="height" constant="28" id="FrI-hR-v4Z"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Check"/>
+                                    <segment title="Repeat"/>
+                                    <segment title="Show"/>
+                                    <segment title="Next"/>
+                                </segments>
+                                <connections>
+                                    <action selector="checkBtnSeg:" destination="BYZ-38-t0r" eventType="valueChanged" id="REG-og-EKa"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct / Attempt : 00 / 00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-pl-jPg">
+                                <rect key="frame" x="20" y="99" width="374" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="NEX-eP-4lo"/>
+                                    <constraint firstAttribute="width" constant="374" id="nO2-Vk-Uaw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Brc-0r-hrD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MgF-gg-ssw"/>
+                            <constraint firstItem="sTD-sf-2JI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="af1-Jf-GoN"/>
+                            <constraint firstItem="sTD-sf-2JI" firstAttribute="top" secondItem="Zya-Qn-95e" secondAttribute="bottom" constant="24" id="kb7-Dg-pWM"/>
+                            <constraint firstItem="Zya-Qn-95e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="kvr-e0-WDs"/>
+                            <constraint firstItem="Brc-0r-hrD" firstAttribute="top" secondItem="sTD-sf-2JI" secondAttribute="bottom" constant="26" id="se7-cA-1aI"/>
+                            <constraint firstItem="QgA-pl-jPg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="twC-DI-9ZZ"/>
+                            <constraint firstItem="Zya-Qn-95e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="udv-21-jcM"/>
+                            <constraint firstItem="QgA-pl-jPg" firstAttribute="top" secondItem="Zya-Qn-95e" secondAttribute="bottom" constant="2" id="zTa-iz-Pyr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="chkBtnSeg" destination="sTD-sf-2JI" id="FOh-BL-oQA"/>
+                        <outlet property="progressLbl" destination="QgA-pl-jPg" id="yG8-XP-xyb"/>
+                        <outlet property="wordInfoSeg" destination="Brc-0r-hrD" id="m7Z-8C-zcn"/>
+                        <outlet property="wordTxt" destination="Zya-Qn-95e" id="ikO-7W-jKX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="132.58928571428572"/>
+        </scene>
+    </scenes>
+</document>
