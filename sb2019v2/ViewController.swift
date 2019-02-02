@@ -48,7 +48,6 @@ class ViewController: UIViewController {
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome"]
     let retryArray = ["Try again","Oooops"]
-    let allWords = WordBank()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +62,7 @@ class ViewController: UIViewController {
         lastQIndex = totalNumberOfQuestions - 1
         questionIndex = Int.random(in: 0...lastQIndex)
 
-        readMe(myText: "Spell \(allWords.list[questionIndex].spellWord).")
+        readMe(myText: "Spell \(questions.list[questionIndex].spellWord).")
         enableAllBtn()
         chkBtnSeg.selectedSegmentIndex = -1
         wordInfoSeg.selectedSegmentIndex = -1
@@ -75,7 +74,7 @@ class ViewController: UIViewController {
         synthesizer.speak(utterance)
     }
     func buildSearchUrl(){
-        spellingWord = allWords.list[questionIndex].spellWord
+        spellingWord = questions.list[questionIndex].spellWord
         builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
     }
     func getWordInfo(){
@@ -190,7 +189,6 @@ class ViewController: UIViewController {
             showWord()
             chkBtnSeg.setEnabled(false, forSegmentAt: 0)
         case 3:
-            print(lastQIndex)
             if lastQIndex == 0{
                 let alert = UIAlertController(title: "Congratulations!", message: "You've finished, do you want to start over again?", preferredStyle: .alert)
                 let restartAction = UIAlertAction(title: "Start Over", style: .default) { (handler) in
