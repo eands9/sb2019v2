@@ -11,7 +11,8 @@ import AVKit
 import MessageUI
 import SwiftSoup
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
+    
     @IBOutlet weak var chkBtnSeg: UISegmentedControl!
     @IBOutlet weak var wordInfoSeg: UISegmentedControl!
     @IBOutlet weak var wordTxt: UITextField!
@@ -31,19 +32,13 @@ class ViewController: UIViewController {
     var questions = WordBank()
     var lastQIndex = 0
     var questionIndex = 0
-    
+    var markedQuestions = [Word]()
     var questionNumber: Int = 0
     var randomPick: Int = 0
     var correctAnswers: Int = 0
     var numberAttempts: Int = 0
     var totalNumberOfQuestions: Int = 0
     var markedQuestionsCount: Int = 0
-    var isTesting: Bool = true
-    var isLoadedTrackedQuestions: Bool = false
-    var markedQuestions = [Word]()
-    var IsCorrect: Bool = true
-    var isStartOver: Bool = false
-    var wrongAlready: Bool = false
     var markedWordForSMS = [""]
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome"]
@@ -59,13 +54,25 @@ class ViewController: UIViewController {
 
         let numberOfQuestions = questions.list
         totalNumberOfQuestions = numberOfQuestions.count
-        lastQIndex = totalNumberOfQuestions - 1
-        questionIndex = Int.random(in: 0...lastQIndex)
 
-        readMe(myText: "Spell \(questions.list[questionIndex].spellWord).")
-        enableAllBtn()
-        chkBtnSeg.selectedSegmentIndex = -1
-        wordInfoSeg.selectedSegmentIndex = -1
+        if totalNumberOfQuestions == 0{
+            
+            let alert = UIAlertController(title: "Congratulations!", message: "You've finished, do you want to start over again?", preferredStyle: .alert)
+            let restartAction = UIAlertAction(title: "Start Over", style: .default) { (handler) in
+                self.sendSMS()
+                self.startOver()
+            }
+            alert.addAction(restartAction)
+            present(alert, animated: true, completion: nil)
+        }
+        else{
+            lastQIndex = totalNumberOfQuestions - 1
+            questionIndex = Int.random(in: 0...lastQIndex)
+            readMe(myText: "Spell \(questions.list[questionIndex].spellWord).")
+            enableAllBtn()
+            chkBtnSeg.selectedSegmentIndex = -1
+            wordInfoSeg.selectedSegmentIndex = -1
+        }
     }
     func readMe( myText: String) {
         let utterance = AVSpeechUtterance(string: myText )
@@ -147,6 +154,7 @@ class ViewController: UIViewController {
             randomTryAgain()
             numberAttempts += 1
             updateProgress()
+            trackMarkedQuestions()
         }
     }
     func randomPositiveFeedback(){
@@ -171,11 +179,44 @@ class ViewController: UIViewController {
         chkBtnSeg.setEnabled(false, forSegmentAt: 0)
     }
     func startOver(){
-        questionIndex = 0
         correctAnswers = 0
         numberAttempts = 0
         updateProgress()
+        questions = WordBank()
+        askQuestion()
         
+    }
+    func trackMarkedQuestions(){
+        let trackedWord = questions.list[questionIndex].spellWord
+        markedWordForSMS.append(trackedWord)
+        
+        markedQuestions.append(Word(word: trackedWord))
+        markedQuestionsCount += 1
+    }
+    func sendSMS(){
+        let combinedMarkedWords = markedWordForSMS.joined(separator: ", ")
+        let messageVC = MFMessageComposeViewController()
+        
+        messageVC.body = combinedMarkedWords;
+        messageVC.recipients = ["469-910-6366"]
+        messageVC.messageComposeDelegate = self
+        
+        self.present(messageVC, animated: false, completion: nil)
+    }
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        switch (result) {
+        case .cancelled:
+            print("Message was cancelled")
+            dismiss(animated: true, completion: nil)
+        case .failed:
+            print("Message failed")
+            dismiss(animated: true, completion: nil)
+        case .sent:
+            print("Message was sent")
+            dismiss(animated: true, completion: nil)
+        default:
+            break
+        }
     }
     @IBAction func checkBtnSeg(_ sender: Any) {
         let chkBtnSegIndex = chkBtnSeg.selectedSegmentIndex
@@ -187,20 +228,11 @@ class ViewController: UIViewController {
             chkBtnSeg.selectedSegmentIndex = -1
         case 2:
             showWord()
+            trackMarkedQuestions()
             chkBtnSeg.setEnabled(false, forSegmentAt: 0)
         case 3:
-            if lastQIndex == 0{
-                let alert = UIAlertController(title: "Congratulations!", message: "You've finished, do you want to start over again?", preferredStyle: .alert)
-                let restartAction = UIAlertAction(title: "Start Over", style: .default) { (handler) in
-                    self.startOver()
-                }
-                alert.addAction(restartAction)
-                present(alert, animated: true, completion: nil)
-            }
-            else{
-                questions.list.remove(at: questionIndex)
-                askQuestion()
-            }
+            questions.list.remove(at: questionIndex)
+            askQuestion()
         default:
             wordTxt.text = "There's a problem!"
     }
