@@ -68,7 +68,31 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         else{
             lastQIndex = totalNumberOfQuestions - 1
             questionIndex = Int.random(in: 0...lastQIndex)
-            readMe(myText: "Spell \(questions.list[questionIndex].spellWord).")
+            spellingWord = questions.list[questionIndex].spellWord
+            builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
+            let myURL = URL(string: builtUrl)
+            let html = try! String(contentsOf: myURL!, encoding: .utf8)
+            
+            do {
+                let doc: Document = try SwiftSoup.parseBodyFragment(html)
+                let wordDef: Elements = try doc.getElementsByClass("dtText")
+                let wordType = try doc.select("div.entry-header:nth-child(2) > div:nth-child(1) > span:nth-child(2) > a:nth-child(1)")
+                let wordPronounciation = try doc.getElementsByClass("prs")
+                let wordSentence = try doc.getElementsByClass("t has-aq")
+                let wordWavFile = try doc.getElementsByClass("play-pron hw-play-pron")
+                
+                wordDefTxt = String(try wordDef.text().dropFirst())
+                wordTypeTxt = try wordType.text()
+                wordPronounciationTxt = try wordPronounciation.text()
+                wordSentenceTxt = try wordSentence.text()
+                wordSoundFile = try wordWavFile.attr("data-file")
+                wordSoundFileDir = try wordWavFile.attr("data-dir")
+                
+            } catch Exception.Error(let type, let message) {
+                print("Message: \(message)")
+            } catch {print("error")}
+            
+            readMe(myText: "Definition is...... \(wordDefTxt).")
             enableAllBtn()
             chkBtnSeg.selectedSegmentIndex = -1
             wordInfoSeg.selectedSegmentIndex = -1
@@ -83,6 +107,11 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     func buildSearchUrl(){
         spellingWord = questions.list[questionIndex].spellWord
         builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
+    }
+    func goToMW(){
+        if let mwUrl = URL(string: builtUrl){
+            UIApplication.shared.open(mwUrl, options: [:])
+        }
     }
     func getWordInfo(){
         let myURL = URL(string: builtUrl)
@@ -256,7 +285,8 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         let wordInfoIndex = wordInfoSeg.selectedSegmentIndex
         switch wordInfoIndex {
         case 0:
-            wordTxt.text = wordTypeTxt
+            goToMW()
+            chkBtnSeg.setEnabled(false, forSegmentAt: 0)
         case 1:
             readMe(myText: wordDefTxt)
         case 2:

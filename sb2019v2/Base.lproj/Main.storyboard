@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="sb2019v2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="d1_latin1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                                     <constraint firstAttribute="height" constant="28" id="Xcm-l5-vYN"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="Type"/>
+                                    <segment title="Word"/>
                                     <segment title="Def"/>
                                     <segment title="Stop"/>
                                     <segment title="Sound"/>
@@ -47,7 +47,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-sf-2JI">
-                                <rect key="frame" x="19.5" y="120" width="375" height="29"/>
+                                <rect key="frame" x="19.5" y="121" width="375" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="3sA-zQ-7fn"/>
                                     <constraint firstAttribute="height" constant="28" id="FrI-hR-v4Z"/>
