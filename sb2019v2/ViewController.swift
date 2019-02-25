@@ -20,6 +20,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     @IBOutlet weak var progressLbl: UILabel!
     @IBOutlet weak var wordLbl: UILabel!
     
+    
     var spellingWord = ""
     var builtUrl = ""
     var wordDefTxt = ""
@@ -32,7 +33,9 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     let synthesizer = AVSpeechSynthesizer()
     
     var itemList = [String]()
+    var allItems = [Item]()
     var itemArray = [Item]()
+    let itemFetchRequest = NSFetchRequest<Item>(entityName: "Item")
     var loadQuestions = WordBank()
     var questions = [Item]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -54,49 +57,60 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         super.viewDidLoad()
         //askQuestion()
         getWords()
+        
     }
     //MARK: - Preload CoreData
-//    func preloadCoreData(){
-//        for word in loadQuestions.list{
-//            let newItem = Item(context: self.context)
-//            newItem.title = word.spellWord
-//            self.itemArray.append(newItem)
-//            self.saveItems()
-//        }
-//    }
-//    func saveItems(){
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error saving context \(error)")
-//        }
-//    }
+    func preloadCoreData(){
+        for word in loadQuestions.list{
+            let newItem = Item(context: self.context)
+            newItem.title = word.spellWord
+            self.itemArray.append(newItem)
+            self.saveItems()
+        }
+    }
+    func saveItems(){
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
     func updateDate(){
+        let todaysDate = Date()
+        questions[questionIndex].date = todaysDate
+        saveItems()
     }
     func getWords(){
         
-        let itemFetchRequest = NSFetchRequest<Item>(entityName: "Item")
+        itemFetchRequest.predicate = NSPredicate(format:"date == nil", 0)
         itemFetchRequest.fetchLimit = 10
-        let allItems = try! context.fetch(itemFetchRequest)
-        
-
+        allItems = []
+        allItems = try! context.fetch(itemFetchRequest)
+        if allItems.count == 0 {
+            preloadCoreData()
+            allItems = try! context.fetch(itemFetchRequest)
+        }
+        itemList.removeAll()
         for item in allItems{
             itemList.append(item.title!)
             //print(item.title!)
         }
-        //print(itemList)
+        //print(allItems)
         wordLbl.text = itemList.joined(separator: ", ")
-        
+        questions = allItems
+        askQuestion()
+
     }
-    func getCurrentShortDate() -> String {
-        let todaysDate = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let DateInFormat = dateFormatter.string(from: todaysDate)
-        
-        return DateInFormat
-    }
+//    func getCurrentShortDate() -> Date {
+//        let todaysDate = Date()
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let DateInFormat = dateFormatter.string(from: todaysDate)
+//
+//        return DateInFormat
+//    }
     func askQuestion() {
+        //print(allItems.count)
         wordTxt.text = ""
         self.wordTxt.becomeFirstResponder()
 
@@ -108,7 +122,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
             
             let alert = UIAlertController(title: "Congratulations!", message: "You've finished, do you want to start over again?", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Start Over", style: .default) { (handler) in
-                self.sendSMS()
+                //self.sendSMS()
                 self.startOver()
             }
             alert.addAction(restartAction)
@@ -219,6 +233,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         if spellWord == wordTxt.text?.lowercased() {
             randomPositiveFeedback()
             //questions.list.remove(at: questionIndex)
+            updateDate()
             questions.remove(at: questionIndex)
             //Wait 2 seconds before showing the next question
             let when = DispatchTime.now() + 2
@@ -268,8 +283,8 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         numberAttempts = 0
         updateProgress()
         //questions = WordBank()
-        questions = [Item]()
-        askQuestion()
+        //questions = [Item]()
+        getWords()
         
     }
     func trackMarkedQuestions(){
