@@ -14,6 +14,7 @@
 		6D548F292205D37600DE179C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D548F272205D37600DE179C /* LaunchScreen.storyboard */; };
 		6D548F312205DF8A00DE179C /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D548F302205DF8A00DE179C /* Word.swift */; };
 		6D548F332205E05A00DE179C /* WordBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D548F322205E05A00DE179C /* WordBank.swift */; };
+		6DEFE37D2222D4A2000A2BCC /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE37B2222D4A2000A2BCC /* DataModel.xcdatamodeld */; };
 		8CF389A30A876D9C16071D34 /* Pods_sb2019v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27F536F643680630CD72FCF /* Pods_sb2019v2.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		6D548F2A2205D37600DE179C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D548F302205DF8A00DE179C /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		6D548F322205E05A00DE179C /* WordBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBank.swift; sourceTree = "<group>"; };
+		6DEFE37C2222D4A2000A2BCC /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		C41D2DEC171A38E27D497231 /* Pods-sb2019v2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sb2019v2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sb2019v2/Pods-sb2019v2.debug.xcconfig"; sourceTree = "<group>"; };
 		D27F536F643680630CD72FCF /* Pods_sb2019v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sb2019v2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F482EC42FC3E5C9CF919E347 /* Pods-sb2019v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sb2019v2.release.xcconfig"; path = "Pods/Target Support Files/Pods-sb2019v2/Pods-sb2019v2.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				6D548F302205DF8A00DE179C /* Word.swift */,
 				6D548F322205E05A00DE179C /* WordBank.swift */,
+				6DEFE37B2222D4A2000A2BCC /* DataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D548F212205D37300DE179C /* ViewController.swift in Sources */,
+				6DEFE37D2222D4A2000A2BCC /* DataModel.xcdatamodeld in Sources */,
 				6D548F332205E05A00DE179C /* WordBank.swift in Sources */,
 				6D548F1F2205D37300DE179C /* AppDelegate.swift in Sources */,
 				6D548F312205DF8A00DE179C /* Word.swift in Sources */,
@@ -427,6 +431,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DEFE37B2222D4A2000A2BCC /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DEFE37C2222D4A2000A2BCC /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 6DEFE37C2222D4A2000A2BCC /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6D548F132205D37300DE179C /* Project object */;
 }

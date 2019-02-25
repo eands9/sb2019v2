@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="d1_latin1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="d1_latin13to14" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,9 +72,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KP-aj-xMs">
+                                <rect key="frame" x="20" y="221" width="374" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="49g-vU-qwf"/>
+                                    <constraint firstAttribute="width" constant="374" id="UFc-wU-vtE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="8KP-aj-xMs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="D9f-Vm-tFJ"/>
+                            <constraint firstItem="8KP-aj-xMs" firstAttribute="top" secondItem="Brc-0r-hrD" secondAttribute="bottom" constant="18" id="FYx-6l-UXq"/>
                             <constraint firstItem="Brc-0r-hrD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MgF-gg-ssw"/>
                             <constraint firstItem="sTD-sf-2JI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="af1-Jf-GoN"/>
                             <constraint firstItem="sTD-sf-2JI" firstAttribute="top" secondItem="Zya-Qn-95e" secondAttribute="bottom" constant="24" id="kb7-Dg-pWM"/>
@@ -90,6 +102,7 @@
                         <outlet property="chkBtnSeg" destination="sTD-sf-2JI" id="FOh-BL-oQA"/>
                         <outlet property="progressLbl" destination="QgA-pl-jPg" id="yG8-XP-xyb"/>
                         <outlet property="wordInfoSeg" destination="Brc-0r-hrD" id="m7Z-8C-zcn"/>
+                        <outlet property="wordLbl" destination="8KP-aj-xMs" id="JFu-83-fFk"/>
                         <outlet property="wordTxt" destination="Zya-Qn-95e" id="ikO-7W-jKX"/>
                     </connections>
                 </viewController>

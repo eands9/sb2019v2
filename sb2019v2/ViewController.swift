@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import MessageUI
 import SwiftSoup
+import CoreData
 
 class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     
@@ -17,6 +18,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     @IBOutlet weak var wordInfoSeg: UISegmentedControl!
     @IBOutlet weak var wordTxt: UITextField!
     @IBOutlet weak var progressLbl: UILabel!
+    @IBOutlet weak var wordLbl: UILabel!
     
     var spellingWord = ""
     var builtUrl = ""
@@ -29,7 +31,11 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     var player: AVPlayer?
     let synthesizer = AVSpeechSynthesizer()
     
-    var questions = WordBank()
+    var itemList = [String]()
+    var itemArray = [Item]()
+    var loadQuestions = WordBank()
+    var questions = [Item]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var lastQIndex = 0
     var questionIndex = 0
     var markedQuestions = [Word]()
@@ -46,15 +52,58 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        askQuestion()
+        //askQuestion()
+        getWords()
+    }
+    //MARK: - Preload CoreData
+//    func preloadCoreData(){
+//        for word in loadQuestions.list{
+//            let newItem = Item(context: self.context)
+//            newItem.title = word.spellWord
+//            self.itemArray.append(newItem)
+//            self.saveItems()
+//        }
+//    }
+//    func saveItems(){
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Error saving context \(error)")
+//        }
+//    }
+    func updateDate(){
+    }
+    func getWords(){
+        
+        let itemFetchRequest = NSFetchRequest<Item>(entityName: "Item")
+        itemFetchRequest.fetchLimit = 10
+        let allItems = try! context.fetch(itemFetchRequest)
+        
+
+        for item in allItems{
+            itemList.append(item.title!)
+            //print(item.title!)
+        }
+        //print(itemList)
+        wordLbl.text = itemList.joined(separator: ", ")
+        
+    }
+    func getCurrentShortDate() -> String {
+        let todaysDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let DateInFormat = dateFormatter.string(from: todaysDate)
+        
+        return DateInFormat
     }
     func askQuestion() {
         wordTxt.text = ""
         self.wordTxt.becomeFirstResponder()
 
-        let numberOfQuestions = questions.list
-        totalNumberOfQuestions = numberOfQuestions.count
-
+//        let numberOfQuestions = questions.list
+//        totalNumberOfQuestions = numberOfQuestions.count
+        totalNumberOfQuestions = questions.count
+        
         if totalNumberOfQuestions == 0{
             
             let alert = UIAlertController(title: "Congratulations!", message: "You've finished, do you want to start over again?", preferredStyle: .alert)
@@ -68,8 +117,9 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         else{
             lastQIndex = totalNumberOfQuestions - 1
             questionIndex = Int.random(in: 0...lastQIndex)
-            spellingWord = questions.list[questionIndex].spellWord
-            builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
+            //spellingWord = questions.list[questionIndex].spellWord
+            //builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
+            buildSearchUrl()
             let myURL = URL(string: builtUrl)
             let html = try! String(contentsOf: myURL!, encoding: .utf8)
             
@@ -105,7 +155,9 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         synthesizer.speak(utterance)
     }
     func buildSearchUrl(){
-        spellingWord = questions.list[questionIndex].spellWord
+//        spellingWord = questions.list[questionIndex].spellWord
+//        builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
+        spellingWord = questions[questionIndex].title!
         builtUrl = "https://www.merriam-webster.com/dictionary/\(spellingWord)"
     }
     func goToMW(){
@@ -162,10 +214,12 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         }
     }
     func checkBtn(){
-        let spellWord = questions.list[questionIndex].spellWord
+        //let spellWord = questions.list[questionIndex].spellWord
+        let spellWord = spellingWord
         if spellWord == wordTxt.text?.lowercased() {
             randomPositiveFeedback()
-            questions.list.remove(at: questionIndex)
+            //questions.list.remove(at: questionIndex)
+            questions.remove(at: questionIndex)
             //Wait 2 seconds before showing the next question
             let when = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: when){
@@ -199,10 +253,12 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         progressLbl.text = "Correct/Attempt: \(correctAnswers) / \(numberAttempts)"
     }
     func repeatBtn() {
-        readMe(myText: questions.list[questionIndex].spellWord)
+        //readMe(myText: questions.list[questionIndex].spellWord)
+        readMe(myText: spellingWord)
     }
     func showWord(){
-        wordTxt.text = questions.list[questionIndex].spellWord.uppercased()
+        //wordTxt.text = questions.list[questionIndex].spellWord.uppercased()
+        wordTxt.text = spellingWord.uppercased()
         numberAttempts += 1
         updateProgress()
         chkBtnSeg.setEnabled(false, forSegmentAt: 0)
@@ -211,12 +267,14 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         correctAnswers = 0
         numberAttempts = 0
         updateProgress()
-        questions = WordBank()
+        //questions = WordBank()
+        questions = [Item]()
         askQuestion()
         
     }
     func trackMarkedQuestions(){
-        let trackedWord = questions.list[questionIndex].spellWord
+        //let trackedWord = questions.list[questionIndex].spellWord
+        let trackedWord = spellingWord
         markedWordForSMS.append(trackedWord)
         
         markedQuestions.append(Word(word: trackedWord))
@@ -260,7 +318,8 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
             trackMarkedQuestions()
             chkBtnSeg.setEnabled(false, forSegmentAt: 0)
         case 3:
-            questions.list.remove(at: questionIndex)
+            //questions.list.remove(at: questionIndex)
+            questions.remove(at: questionIndex)
             askQuestion()
         default:
             wordTxt.text = "There's a problem!"
