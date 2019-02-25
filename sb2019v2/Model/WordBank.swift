@@ -1380,6 +1380,5 @@ class WordBank{
         list.append(Word(word:"wrote"))
         list.append(Word(word:"yore"))
         list.append(Word(word:"your"))
-
     }
 }

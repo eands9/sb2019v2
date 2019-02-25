@@ -59,6 +59,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         getWords()
         
     }
+    
     //MARK: - Preload CoreData
     func preloadCoreData(){
         for word in loadQuestions.list{
@@ -68,6 +69,7 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
             self.saveItems()
         }
     }
+    
     func saveItems(){
         do {
             try context.save()
@@ -81,16 +83,31 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         saveItems()
     }
     func getWords(){
+        let itemFetchRequestAll = NSFetchRequest<Item>(entityName: "Item")
+        let checkIfThereAreItems = try! context.fetch(itemFetchRequestAll)
+        
+        if checkIfThereAreItems.count == 0 {
+            preloadCoreData()
+        }
+        
+        allItems = []
+        itemList.removeAll()
         
         itemFetchRequest.predicate = NSPredicate(format:"date == nil", 0)
         itemFetchRequest.fetchLimit = 10
-        allItems = []
         allItems = try! context.fetch(itemFetchRequest)
+        
         if allItems.count == 0 {
-            preloadCoreData()
+            for checkItem in checkIfThereAreItems{
+                checkItem.date = nil
+            }
+            saveItems()
+            itemFetchRequest.predicate = NSPredicate(format:"date == nil", 0)
+            itemFetchRequest.fetchLimit = 2
             allItems = try! context.fetch(itemFetchRequest)
         }
-        itemList.removeAll()
+
+        
         for item in allItems{
             itemList.append(item.title!)
             //print(item.title!)
@@ -101,19 +118,16 @@ class ViewController: UIViewController,MFMessageComposeViewControllerDelegate {
         askQuestion()
 
     }
-//    func getCurrentShortDate() -> Date {
-//        let todaysDate = Date()
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let DateInFormat = dateFormatter.string(from: todaysDate)
-//
-//        return DateInFormat
-//    }
+    
+    @IBAction func editWordTxt(_ sender: Any) {
+        wordLbl.textColor = (UIColor.black)
+    }
     func askQuestion() {
         //print(allItems.count)
+        wordLbl.textColor = (UIColor.white)
         wordTxt.text = ""
-        self.wordTxt.becomeFirstResponder()
-
+        //self.wordTxt.becomeFirstResponder()
+        self.wordTxt.resignFirstResponder()
 //        let numberOfQuestions = questions.list
 //        totalNumberOfQuestions = numberOfQuestions.count
         totalNumberOfQuestions = questions.count

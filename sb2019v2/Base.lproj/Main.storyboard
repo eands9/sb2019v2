@@ -27,6 +27,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <action selector="editWordTxt:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="joX-bQ-1nX"/>
+                                </connections>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Brc-0r-hrD">
                                 <rect key="frame" x="19.5" y="175" width="375" height="29"/>
@@ -74,7 +77,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label as asd asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf , eeeeeeeeeeeeeeeeee" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HkV-4q-Z7l">
                                 <rect key="frame" x="19.5" y="211" width="375" height="84"/>
-                                <color key="backgroundColor" red="1" green="0.91278476720000001" blue="0.39315189080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="84" id="gcR-4A-hVP"/>
                                     <constraint firstAttribute="width" constant="375" id="mw5-gH-xFP"/>

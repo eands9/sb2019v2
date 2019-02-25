@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D548F1B2205D37300DE179C /* d1-latin13to14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "d1-latin13to14.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D548F1B2205D37300DE179C /* sb2019v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sb2019v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D548F1E2205D37300DE179C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D548F202205D37300DE179C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6D548F232205D37300DE179C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 		6D548F1C2205D37300DE179C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6D548F1B2205D37300DE179C /* d1-latin13to14.app */,
+				6D548F1B2205D37300DE179C /* sb2019v2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,9 +108,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6D548F1A2205D37300DE179C /* d1-latin13to14 */ = {
+		6D548F1A2205D37300DE179C /* sb2019v2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6D548F2D2205D37600DE179C /* Build configuration list for PBXNativeTarget "d1-latin13to14" */;
+			buildConfigurationList = 6D548F2D2205D37600DE179C /* Build configuration list for PBXNativeTarget "sb2019v2" */;
 			buildPhases = (
 				1B4D9292F13181BF8B894A7E /* [CP] Check Pods Manifest.lock */,
 				6D548F172205D37300DE179C /* Sources */,
@@ -122,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = "d1-latin13to14";
+			name = sb2019v2;
 			productName = sb2019v2;
-			productReference = 6D548F1B2205D37300DE179C /* d1-latin13to14.app */;
+			productReference = 6D548F1B2205D37300DE179C /* sb2019v2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,7 +142,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6D548F162205D37300DE179C /* Build configuration list for PBXProject "d1-latin13to14" */;
+			buildConfigurationList = 6D548F162205D37300DE179C /* Build configuration list for PBXProject "sb2019v2" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -155,7 +155,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6D548F1A2205D37300DE179C /* d1-latin13to14 */,
+				6D548F1A2205D37300DE179C /* sb2019v2 */,
 			);
 		};
 /* End PBXProject section */
@@ -383,7 +383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.sb2019v2-d1-latin13to14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eands9.sb2019v2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -402,7 +402,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.sb2019v2-d1-latin13to14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eands9.sb2019v2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -412,7 +412,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6D548F162205D37300DE179C /* Build configuration list for PBXProject "d1-latin13to14" */ = {
+		6D548F162205D37300DE179C /* Build configuration list for PBXProject "sb2019v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D548F2B2205D37600DE179C /* Debug */,
@@ -421,7 +421,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6D548F2D2205D37600DE179C /* Build configuration list for PBXNativeTarget "d1-latin13to14" */ = {
+		6D548F2D2205D37600DE179C /* Build configuration list for PBXNativeTarget "sb2019v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D548F2E2205D37600DE179C /* Debug */,
